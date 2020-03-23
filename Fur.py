@@ -41,7 +41,45 @@ import random
 #     cafe.append(Cafe(1, 2, cafe_1.get_type(2)).start())
 # print(cafe)
 
+class Object:
+    def __init__(self, value = 0,object_type = 0):
+       self.value = value
+       self.type = object_type
 
+class Mapper:
+    def __init__(self,size, computer_objects = 3):
+        self.matrix = []
+        for _ in range(size):
+            row = []
+            for _ in range(size):
+                row.append(Object())
+            self.matrix.append(row)
+        self.size = size
+        self.computer_objects = computer_objects
+
+    def addObject(self,Object):
+        if(self.computer_objects == 0):
+            print("No free space for you, cowboy")
+            return
+        while True:
+            x = random.randint(0,self.size)
+            y = random.randint(0,self.size)
+            if (self.matrix[x][y].value == 0): #NOTE: 0 stands for no owner
+                self.matrix[x][y].value = 1 #NOTE: 1 stands for computer owner
+                self.matrix[x][y].type = Object.type 
+                self.computer_objects-=1
+                break
+        Object.x = x
+        Object.y = y
+    def addUserObject(self,Object,x,y):
+        if (self.matrix[x][y].value == 0):
+            self.matrix[x][y].value = 2 #NOTE: 2 stands for user owner
+            self.matrix[x][y].type = Object.type 
+            Object.x = x
+            Object.y = y
+        else:
+            print("This space is ocupied")
+    
 class Cafe:
     cafe_count = 0
     @staticmethod
@@ -59,32 +97,31 @@ class Cafe:
             print('There is no such type')
         return (spendings, max_entrance)
 
-    def start(self, x, y, id, price):
+    def start(self, id, price , owner = "Computer"):
         print('Cafe is opened!')
-        self.point = (x, y)
-        self.owner = "Computer"
-        self.entr = entr
+        self.type = id
+        self.owner = owner
         self.price = price
-        print(self.point, self.owner, id, self.price, Cafe.get_type(id))
+        self.x = 0
+        self.y = 0
+        self.spendings,self.max_entrance = Cafe.get_type(id)
+        print(self.owner, id, self.price)
         Cafe.cafe_count +=1
 
 
 cafes_a = [Cafe() for i in range(random.randint(0, 3))]
 for i in cafes_a:
-    i.start(2, 3, 1, random.randint(25, 35))
-# print(cafe_a.get_type(1))
+    i.start(1, random.randint(25, 35))
 print(cafes_a)
 cafe_b = Cafe()
-cafe_b.start(1, 1, 0, random.randint(15, 25))
-# print(cafe_b.get_type(0))
+cafe_b.start(0, random.randint(15, 25))
 print(cafe_b.cafe_count)
 cafe_с = Cafe()
-cafe_с.start(2, 2, 2, random.randint(30, 45))
-# print(cafe_b.get_type(0))
+cafe_с.start(2, random.randint(30, 45))
 print(cafe_с.cafe_count)
 
-
-
+map = Mapper(4)
+map.addObject(cafe_b)
 
 
 
