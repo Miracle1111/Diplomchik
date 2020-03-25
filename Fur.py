@@ -71,6 +71,8 @@ class Mapper:
                 break
         Object.x = x
         Object.y = y
+
+
     def addUserObject(self,Object,x,y):
         if (self.matrix[x][y].value == 0):
             self.matrix[x][y].value = 2 #NOTE: 2 stands for user owner
@@ -108,13 +110,13 @@ class Cafe:
         print(self.owner, id, self.price)
         Cafe.cafe_count +=1
 
-def draw(Object):
-    if Object.val  == 1:
-        #TODO draw compture building
-        if Object.type == 0:
-            #TODO draw computer small
-    if Object.val == 2:
-        #TODO draw user building
+# def draw(Object):
+#     if Object.val  == 1:
+#         #TODO draw compture building
+#         if Object.type == 0:
+#             #TODO draw computer small
+#     if Object.val == 2:
+#         #TODO draw user building
 
 cafes_a = [Cafe() for i in range(random.randint(0, 3))]
 for i in cafes_a:
@@ -131,6 +133,6 @@ map = Mapper(4)
 map.addObject(cafe_b)
 
 
-for i in range(map.size):
-    for j in range(map.size):
-        draw(map[i][j])
+# for i in range(map.size):
+#     for j in range(map.size):
+#         draw(map[i][j])
